@@ -1,5 +1,10 @@
 #include "ReceiptPrinter.h"
-
+const std::string ReceiptPrinter::kNewLine = "\n";
+const std::string ReceiptPrinter::kTotalPrefix = "Total: ";
+const std::string ReceiptPrinter::kSpace = " ";
+const std::string ReceiptPrinter::kMultiplySign = " * ";
+const std::string ReceiptPrinter::kOpenBracket = "(";;
+const std::string ReceiptPrinter::kCloseBracket = ")";
 ReceiptPrinter::ReceiptPrinter(int columns = 40) : columns(columns)
 {
 }
@@ -15,7 +20,7 @@ std::string ReceiptPrinter::printReceipt(const Receipt &receipt)
     {
         result += presentDiscount(discount);
     }
-    result+= "\n";
+    result+= kNewLine;
     result += presentTotal(receipt);
     return result;
 }
@@ -29,21 +34,21 @@ std::string ReceiptPrinter::presentReceiptItem(const ReceiptItem &item) const
 
     if (item.getQuantity() != 1)
     {
-        line += "  " + getFormattedNumberAsString(item.getPrice()) + " * " + presentQuantity(item) + "\n";
+        line += kSpace + getFormattedNumberAsString(item.getPrice()) + kMultiplySign + presentQuantity(item) + kNewLine;
     }
     return line;
 }
 
 std::string ReceiptPrinter::presentDiscount(const Discount &discount) const
 {
-    std::string name = discount.getDescription() + "(" + discount.getProduct().getName() + ")";
+    std::string name = discount.getDescription() + kOpenBracket + discount.getProduct().getName() + kCloseBracket;
     std::string pricePresentation = getFormattedNumberAsString(discount.getDiscountAmount());
     return formatLineWithWhitespace(name, pricePresentation);
 }
 
 std::string ReceiptPrinter::presentTotal(const Receipt &receipt) const
 {
-    std::string total = "Total: ";
+    std::string total = kTotalPrefix;
     std::string pricePresentation = getFormattedNumberAsString(receipt.getTotalPrice());
     return formatLineWithWhitespace(total, pricePresentation);
 }
@@ -54,9 +59,9 @@ std::string ReceiptPrinter::formatLineWithWhitespace(const std::string &name, co
     std::string whitespace;
     for (int i = 0; i < whitespaceSize; i++)
     {
-        whitespace += " ";
+        whitespace += kSpace;
     }
-    return name + whitespace + value + "\n";
+    return name + whitespace + value + kNewLine;
 }
 
 

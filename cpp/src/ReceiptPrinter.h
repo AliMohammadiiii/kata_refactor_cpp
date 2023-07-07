@@ -7,6 +7,11 @@
 #include <iomanip>
 #include <sstream>
 
+constexpr int kDefualtPrecision = 2;
+constexpr int kQuantityPrecision = 0;
+constexpr int kQuantityDecimalPrecision = 3;
+
+
 class ReceiptPrinter
 {
 
@@ -25,6 +30,12 @@ private:
     static std::string getFormattedNumberAsString(double number, int precision = 2);
 
     const int columns;
+    static const std::string kNewLine;
+    static const std::string kTotalPrefix;
+    static const std::string kSpace;
+    static const std::string kMultiplySign;
+    static const std::string kOpenBracket;
+    static const std::string kCloseBracket;
 };
 
 
