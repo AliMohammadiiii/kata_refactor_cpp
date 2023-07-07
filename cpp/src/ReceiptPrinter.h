@@ -7,10 +7,6 @@
 #include <iomanip>
 #include <sstream>
 
-constexpr int kDefualtPrecision = 2;
-constexpr int kQuantityPrecision = 0;
-constexpr int kQuantityDecimalPrecision = 3;
-
 
 class ReceiptPrinter
 {

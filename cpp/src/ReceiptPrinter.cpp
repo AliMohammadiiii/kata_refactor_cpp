@@ -1,10 +1,19 @@
 #include "ReceiptPrinter.h"
+
 const std::string ReceiptPrinter::kNewLine = "\n";
 const std::string ReceiptPrinter::kTotalPrefix = "Total: ";
 const std::string ReceiptPrinter::kSpace = " ";
 const std::string ReceiptPrinter::kMultiplySign = " * ";
 const std::string ReceiptPrinter::kOpenBracket = "(";;
 const std::string ReceiptPrinter::kCloseBracket = ")";
+
+
+constexpr int kDefualtPrecision = 2;
+constexpr int kQuantityPrecision = 0;
+constexpr int kQuantityDecimalPrecision = 3;
+
+
+
 ReceiptPrinter::ReceiptPrinter(int columns = 40) : columns(columns)
 {
 }
