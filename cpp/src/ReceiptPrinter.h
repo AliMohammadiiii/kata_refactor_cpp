@@ -6,12 +6,13 @@
 
 #include <iomanip>
 #include <sstream>
-
-
+// Seprate defenition and implement of methods
+// Improve Code Organization
 class ReceiptPrinter
 {
 
 public:
+    // Merge two constructor with defualt value
     ReceiptPrinter(int columns = 40);
     std::string printReceipt(const Receipt &receipt);
 
@@ -26,6 +27,7 @@ private:
     static std::string getFormattedNumberAsString(double number, int precision = 2);
 
     const int columns;
+    // Encapsulate String Constants
     static const std::string kNewLine;
     static const std::string kTotalPrefix;
     static const std::string kSpace;

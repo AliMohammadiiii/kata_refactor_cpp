@@ -1,5 +1,6 @@
 #include "ReceiptPrinter.h"
 
+// Encapsulate String Constants
 const std::string ReceiptPrinter::kNewLine = "\n";
 const std::string ReceiptPrinter::kTotalPrefix = "Total: ";
 const std::string ReceiptPrinter::kSpace = " ";
@@ -7,17 +8,17 @@ const std::string ReceiptPrinter::kMultiplySign = " * ";
 const std::string ReceiptPrinter::kOpenBracket = "(";;
 const std::string ReceiptPrinter::kCloseBracket = ")";
 
-
+// Avoid Magic Numbers
 constexpr int kDefualtPrecision = 2;
 constexpr int kQuantityPrecision = 0;
 constexpr int kQuantityDecimalPrecision = 3;
 
 
-
+// Merge two constructor with defualt value
 ReceiptPrinter::ReceiptPrinter(int columns = 40) : columns(columns)
 {
 }
-
+// Avoid Redundant String Concatenation
 std::string ReceiptPrinter::printReceipt(const Receipt &receipt)
 {
     std::string result;
@@ -68,6 +69,7 @@ std::string ReceiptPrinter::formatLineWithWhitespace(const std::string &name, co
     std::string whitespace;
     for (int i = 0; i < whitespaceSize; i++)
     {
+        // Avoid Redundant String Concatenation
         whitespace += kSpace;
     }
     return name + whitespace + value + kNewLine;
@@ -81,7 +83,7 @@ std::string ReceiptPrinter::presentQuantity(const ReceiptItem &item)
                : getFormattedNumberAsString(item.getQuantity(), kQuantityDecimalPrecision);
 }
 
-
+// Add Defualt Value
 std::string ReceiptPrinter::getFormattedNumberAsString(double number, int precision = kDefualtPrecision)
 {
     std::stringstream stream;
