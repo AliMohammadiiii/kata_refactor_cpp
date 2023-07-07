@@ -1,9 +1,5 @@
 #include "ReceiptPrinter.h"
 
-ReceiptPrinter::ReceiptPrinter() : ReceiptPrinter(40)
-{
-}
-
 ReceiptPrinter::ReceiptPrinter(int columns) : columns(columns)
 {
 }
