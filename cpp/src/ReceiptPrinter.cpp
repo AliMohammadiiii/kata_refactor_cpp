@@ -9,14 +9,14 @@ std::string ReceiptPrinter::printReceipt(const Receipt &receipt)
     std::string result;
     for (const auto &item : receipt.getItems())
     {
-        result.append(presentReceiptItem(item));
+        result += presentReceiptItem(item);
     }
     for (const auto &discount : receipt.getDiscounts())
     {
-        result.append(presentDiscount(discount));
+        result += presentDiscount(discount);
     }
-    result.append("\n");
-    result.append(presentTotal(receipt));
+    result+= "\n";
+    result += presentTotal(receipt);
     return result;
 }
 
@@ -54,7 +54,7 @@ std::string ReceiptPrinter::formatLineWithWhitespace(const std::string &name, co
     std::string whitespace;
     for (int i = 0; i < whitespaceSize; i++)
     {
-        whitespace.append(" ");
+        whitespace += " ";
     }
     return name + whitespace + value + "\n";
 }
@@ -63,12 +63,12 @@ std::string ReceiptPrinter::formatLineWithWhitespace(const std::string &name, co
 std::string ReceiptPrinter::presentQuantity(const ReceiptItem &item)
 {
     return ProductUnit::Each == item.getProduct().getUnit()
-               ? getFormattedNumberAsString(item.getQuantity(), 0)
-               : getFormattedNumberAsString(item.getQuantity(), 3);
+               ? getFormattedNumberAsString(item.getQuantity(), kQuantityPrecision)
+               : getFormattedNumberAsString(item.getQuantity(), kQuantityDecimalPrecision);
 }
 
 
-std::string ReceiptPrinter::getFormattedNumberAsString(double number, int precision = 2)
+std::string ReceiptPrinter::getFormattedNumberAsString(double number, int precision = kDefualtPrecision)
 {
     std::stringstream stream;
     stream << std::fixed << std::setprecision(precision) << number;
