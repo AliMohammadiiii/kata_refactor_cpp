@@ -1,6 +1,6 @@
 #include "ReceiptPrinter.h"
 
-ReceiptPrinter::ReceiptPrinter(int columns) : columns(columns)
+ReceiptPrinter::ReceiptPrinter(int columns = 40) : columns(columns)
 {
 }
 
@@ -22,14 +22,14 @@ std::string ReceiptPrinter::printReceipt(const Receipt &receipt)
 
 std::string ReceiptPrinter::presentReceiptItem(const ReceiptItem &item) const
 {
-    std::string price = getFormattedNumberAsString(item.getTotalPrice(), 2);
+    std::string price = getFormattedNumberAsString(item.getTotalPrice());
     std::string name = item.getProduct().getName();
 
     std::string line = formatLineWithWhitespace(name, price);
 
     if (item.getQuantity() != 1)
     {
-        line += "  " + getFormattedNumberAsString(item.getPrice(), 2) + " * " + presentQuantity(item) + "\n";
+        line += "  " + getFormattedNumberAsString(item.getPrice()) + " * " + presentQuantity(item) + "\n";
     }
     return line;
 }
@@ -37,14 +37,14 @@ std::string ReceiptPrinter::presentReceiptItem(const ReceiptItem &item) const
 std::string ReceiptPrinter::presentDiscount(const Discount &discount) const
 {
     std::string name = discount.getDescription() + "(" + discount.getProduct().getName() + ")";
-    std::string pricePresentation = getFormattedNumberAsString(discount.getDiscountAmount(), 2);
+    std::string pricePresentation = getFormattedNumberAsString(discount.getDiscountAmount());
     return formatLineWithWhitespace(name, pricePresentation);
 }
 
 std::string ReceiptPrinter::presentTotal(const Receipt &receipt) const
 {
     std::string total = "Total: ";
-    std::string pricePresentation = presentPrice(receipt.getTotalPrice());
+    std::string pricePresentation = getFormattedNumberAsString(receipt.getTotalPrice());
     return formatLineWithWhitespace(total, pricePresentation);
 }
 
@@ -59,10 +59,6 @@ std::string ReceiptPrinter::formatLineWithWhitespace(const std::string &name, co
     return name + whitespace + value + "\n";
 }
 
-std::string ReceiptPrinter::presentPrice(double price) const
-{
-    return getFormattedNumberAsString(price, 2);
-}
 
 std::string ReceiptPrinter::presentQuantity(const ReceiptItem &item)
 {
@@ -71,7 +67,8 @@ std::string ReceiptPrinter::presentQuantity(const ReceiptItem &item)
                : getFormattedNumberAsString(item.getQuantity(), 3);
 }
 
-std::string ReceiptPrinter::getFormattedNumberAsString(double number, int precision)
+
+std::string ReceiptPrinter::getFormattedNumberAsString(double number, int precision = 2)
 {
     std::stringstream stream;
     stream << std::fixed << std::setprecision(precision) << number;

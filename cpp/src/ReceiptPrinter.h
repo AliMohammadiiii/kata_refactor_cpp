@@ -23,13 +23,11 @@ public:
 
     std::string formatLineWithWhitespace(const std::string &name, const std::string &value) const;
 
-    std::string presentPrice(double price) const;
-
     static std::string presentQuantity(const ReceiptItem &item);
 
 private:
 
-    static std::string getFormattedNumberAsString(double number, int precision);
+    static std::string getFormattedNumberAsString(double number, int precision = 2);
 
     const int columns;
 
